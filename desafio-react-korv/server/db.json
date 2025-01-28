@@ -1,0 +1,16 @@
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "nome": "Amanda Merelis",
+      "login": "amandamerelis",
+      "senha": "admin123"
+    }
+  ],
+  "projetos": [
+
+  ],
+  "tarefas": [
+
+  ]
+}
