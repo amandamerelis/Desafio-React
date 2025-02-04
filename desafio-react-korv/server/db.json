@@ -5,12 +5,93 @@
       "nome": "Amanda Merelis",
       "login": "amandamerelis",
       "senha": "admin123"
+    },
+    {
+      "id": 2,
+      "nome": "Maria",
+      "login": "maria",
+      "senha": "12345",
+      "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
     }
   ],
   "projetos": [
-
+    {
+      "id": 1,
+      "titulo": "Projeto A",
+      "descricao": "Descrição do projeto A",
+      "participantes": [
+        {
+          "id": 1,
+          "nome": "Amanda Merelis",
+          "login": "amandamerelis"
+        },
+        {
+          "id": 2,
+          "nome": "Maria",
+          "login": "maria",
+          "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
+        }
+      ],
+      "criador": {
+        "id": 1,
+        "nome": "Amanda Merelis",
+        "login": "amandamerelis",
+        "senha": "admin123"
+      },
+      "tarefas": [
+        {
+          "id": 1,
+          "nome": "Tarefa 1",
+          "descricao": "Descrição da tarefa 1",
+          "tags": [
+            "frontend",
+            "urgente"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "titulo": "Projeto B",
+      "descricao": "Descrição do projeto B",
+      "participantes": [
+        {
+          "id": 1,
+          "nome": "Amanda Merelis",
+          "login": "amandamerelis"
+        }
+      ],
+      "criador": {
+        "id": 1,
+        "nome": "Amanda Merelis",
+        "login": "amandamerelis",
+        "senha": "admin123"
+      },
+      "tarefas": [
+      ]
+    },
+    {
+      "id": 3,
+      "titulo": "Projeto C",
+      "descricao": "Descrição do projeto C",
+      "participantes": [
+        {
+          "id": 2,
+          "nome": "Maria",
+          "login": "maria",
+          "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
+        }
+      ],
+      "criador": {
+        "id": 2,
+        "nome": "Maria",
+        "login": "maria",
+        "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
+      },
+      "tarefas": [
+      ]
+    }
   ],
   "tarefas": [
-
   ]
 }
