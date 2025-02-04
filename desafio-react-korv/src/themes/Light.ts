@@ -1,7 +1,8 @@
-import {createTheme} from '@mui/material';
-import {green} from "@mui/material/colors";
+import { createTheme } from '@mui/material';
+import { green } from '@mui/material/colors';
 
 export const LightTheme = createTheme({
+    spacing: 4,
     palette: {
         secondary: {
             main: green.A200,
@@ -9,9 +10,9 @@ export const LightTheme = createTheme({
             light: green.A100,
             contrastText: green.A700,
         },
-        background:{
+        background: {
+            paper: '#FFF',
             default: '#F2F4F7',
-            paper: '#FCFCFD',
         }
     }
 });
