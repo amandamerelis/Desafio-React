@@ -6,7 +6,7 @@ export const LightTheme = createTheme({
     palette: {
         secondary: {
             main: green.A200,
-            dark: green.A400,
+            dark: '#00a655',
             light: green.A100,
             contrastText: green.A700,
         },
@@ -14,5 +14,20 @@ export const LightTheme = createTheme({
             paper: '#FFF',
             default: '#F2F4F7',
         }
-    }
+    },
+    components: {
+        MuiTextField: {
+            defaultProps: {
+                variant: 'filled',
+            },
+        },
+        MuiButton: {
+            styleOverrides:{
+                root: {
+                    textTransform: 'none',
+                    fontWeight: 600
+                }
+            }
+        }
+    },
 });
