@@ -1,14 +1,29 @@
 import { Avatar } from '@mui/material';
 
+type EstiloAvatar = 'circular' | 'rounded';
+type TamanhoAvatar = 'pequeno' | 'medio' | 'grande';
+
 interface AvatarComFotoProps{
-    altura: number,
-    largura: number,
-    urlFoto: string
+    tamanho: TamanhoAvatar,
+    estilo: EstiloAvatar
+    urlFoto: string,
 }
 
 const AvatarComFoto = (props: AvatarComFotoProps) => {
+
+    const tamanho: number = definirTamanhoAvatar(props.tamanho);
+
+    function definirTamanhoAvatar(estilo: TamanhoAvatar): number {
+        switch (estilo){
+        case 'pequeno': return 24;
+        case 'medio': return 38;
+        case 'grande': return 50;
+        default: return 36;
+        }
+    }
+
     return (
-        <Avatar variant="rounded" sx={{ height: props.altura, width: props.largura }}
+        <Avatar variant={props.estilo} sx={{ height: tamanho, width: tamanho }}
             src={props.urlFoto}/>
     );
 };
