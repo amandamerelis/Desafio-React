@@ -1,17 +1,33 @@
 import { useState } from 'react';
-import { Box, IconButton, Typography, useTheme } from '@mui/material';
+import { Box, IconButton, Menu, MenuItem, Typography, useTheme } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { UsuarioModel } from '../../types/usuario.model.ts';
 import AvatarComFoto from '../avatar/AvatarComFoto.tsx';
 import AvatarComIniciais from '../avatar/AvatarComIniciais.tsx';
+import { useAuthContext } from '../../contexts/AuthContext.tsx';
 
 interface InfoUsuarioLogadoProps {
     usuario: UsuarioModel
 }
 
 const InfoUsuarioLogado = ({ usuario }: InfoUsuarioLogadoProps) => {
-    const [expanded, setExpanded] = useState(false);
     const theme = useTheme();
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const { logout } = useAuthContext();
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleLogout = () => {
+        logout();
+        handleClose();
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     return (
         <Box width={theme.spacing(70)} height={theme.spacing(20)} paddingX={theme.spacing(2)}
@@ -23,9 +39,17 @@ const InfoUsuarioLogado = ({ usuario }: InfoUsuarioLogadoProps) => {
                 <Typography variant="body1">{usuario.nome}</Typography>
             </Box>
 
-            <IconButton aria-label="expand menu" color="primary" onClick={() => setExpanded((prev) => !prev)}>
-                {expanded ? <ExpandLess/> : <ExpandMore/>}
+            <IconButton aria-label="expand menu" color="primary" onClick={handleClick}>
+                {open ? <ExpandLess/> : <ExpandMore/>}
             </IconButton>
+            <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+            >
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            </Menu>
         </Box>
     );
 };

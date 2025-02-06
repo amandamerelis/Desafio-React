@@ -1,13 +1,15 @@
-import { Button, Card, CardActions, CardContent, TextField, useTheme } from '@mui/material';
+import { Button, Card, CardActions, CardContent, Checkbox, FormControlLabel, TextField, useTheme } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { UsuarioService } from '../../services/UsuarioService.ts';
 import { useAuthContext } from '../../contexts/AuthContext.tsx';
+import { useState } from 'react';
 
 const Login = () => {
     const theme = useTheme();
     const navigate = useNavigate();
     const { login, logout } = useAuthContext();
+    const [exibirSenha, setExibirSenha] = useState<boolean>(false);
 
     const { register, reset, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -53,12 +55,16 @@ const Login = () => {
                         sx={{ width: theme.spacing(70) }}
                         margin="normal"
                         label="Senha"
+                        type={exibirSenha ? 'text' : 'password'}
                         {...register('senha', {
                             required: 'Campo obrigatório.'
                         })}
                         error={!!errors.senha}
                         helperText={errors.senha?.message?.toString()}
                     />
+                    <FormControlLabel label="Exibir senha" control={
+                        <Checkbox onChange={() => setExibirSenha(prev => !prev) } value={exibirSenha} size="small" />
+                    }/>
 
                 </CardContent>
                 <CardActions sx={{ display: 'flex', alignItens: 'center', justifyContent: 'center', paddingBottom: 6 }}>
