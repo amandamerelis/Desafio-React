@@ -8,10 +8,12 @@ const buscarTodos = async (): Promise<UsuarioDto[] | Error> => {
         if (data) {
             return data;
         } else {
-            return new Error('Erro ao listar usuário.');
+            return new Error('Erro ao listar usuários.');
         }
-    } catch (erro) {
-        console.error(erro);
+    } catch (erro: any) {
+        if (erro.response) {
+            return new Error(erro.response.data.error || 'Erro ao listar usuários.');
+        }
         return new Error((erro as { message: string }).message || 'Erro ao listar usuários.');
     }
 };
@@ -25,15 +27,30 @@ const buscarPorId = async (id: number): Promise<UsuarioModel | Error> => {
         } else {
             return new Error('Erro ao buscar usuário.');
         }
-    } catch (erro) {
-        console.error(erro);
+    } catch (erro: any) {
+        if (erro.response) {
+            return new Error(erro.response.data.error || 'Erro ao buscar usuário.');
+        }
         return new Error((erro as { message: string }).message || 'Erro ao buscar usuário.');
     }
 
 };
 
-const login = async (): Promise<any> => {
-    //TODO: criar método de login
+const login = async (credenciais: {login: string, senha: string}): Promise<UsuarioModel | Error> => {
+    try {
+        const { data } = await Api.post('/usuarios/login', credenciais);
+        if (data) {
+            return data;
+        } else {
+            return new Error('Erro ao fazer login.');
+        }
+    } catch (erro: any) {
+        if (erro.response) {
+            // Erro retornado pelo servidor
+            return new Error(erro.response.data.error || 'Erro ao fazer login.');
+        }
+        return new Error((erro as { message: string }).message || 'Erro ao fazer login.');
+    }
 };
 
 export const UsuarioService = {

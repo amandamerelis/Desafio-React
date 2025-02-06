@@ -5,6 +5,7 @@ const router = jsonServer.router('server/db.json');
 const middlewares = jsonServer.defaults({noCors: false,});
 
 server.use(middlewares);
+server.use(jsonServer.bodyParser);
 
 // Middleware para buscar projetos por usuário
 server.get('/projetos/buscar-por-usuario/:idUsuario', (req, res) => {
@@ -29,6 +30,30 @@ server.get('/tarefas/buscar-por-projeto/:idProjeto', (req, res) => {
     const tarefas = db.get('tarefas').filter(tarefa => tarefa.projetoId === idProjeto).value();
 
     res.jsonp(tarefas);
+});
+
+// Middleware para usuario acessar o sistema
+server.post('/usuarios/login', (req, res) => {
+    const { login, senha } = req.body;
+
+    if (!login || !senha) {
+        return res.status(400).jsonp({
+            error: 'Login e senha são obrigatórios'
+        });
+    }
+
+    const db = router.db;
+    const usuario = db.get('usuarios')
+        .find({ login, senha })
+        .value();
+
+    if (!usuario) {
+        return res.status(401).jsonp({
+            error: 'Credenciais inválidas'
+        });
+    }
+
+    res.jsonp(usuario);
 });
 
 server.use(router);
