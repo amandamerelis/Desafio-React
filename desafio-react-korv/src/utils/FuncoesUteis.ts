@@ -1,20 +1,10 @@
 type FormatoData = 'curto' | 'medio' | 'longo';
 
-export function formatarData(data: Date, formato: FormatoData): string {
+export function formatarData(data: Date | string, formato: FormatoData): string {
 
-    const formatarMedio = (data: Date) => {
-        const partes = new Intl.DateTimeFormat('pt-BR', {
-            day: 'numeric',
-            month: 'short',
-            year: '2-digit'
-        }).formatToParts(data);
+    if(!data) return '';
 
-        const dia = partes.find(p => p.type === 'day')?.value;
-        const mes = partes.find(p => p.type === 'month')?.value;
-        const ano = partes.find(p => p.type === 'year')?.value;
-
-        return `${dia} ${mes} ${ano}`;
-    };
+    const dataJs = new Date(data);
 
     switch (formato) {
     case 'curto':
@@ -23,20 +13,23 @@ export function formatarData(data: Date, formato: FormatoData): string {
             month: 'short',
             year: '2-digit',
 
-        }).format(data);
+        }).format(dataJs);
 
     case 'medio':
-        return formatarMedio(data);
+        return Intl.DateTimeFormat('pt-BR', {
+            day: 'numeric',
+            month: 'short'
+        }).format(dataJs);
 
     case 'longo':
         return Intl.DateTimeFormat('pt-BR', {
             dateStyle: 'long'
-        }).format(data);
+        }).format(dataJs);
 
     default:
         return Intl.DateTimeFormat('pt-BR', {
             dateStyle: 'short'
-        }).format(data);
+        }).format(dataJs);
     }
 }
 
