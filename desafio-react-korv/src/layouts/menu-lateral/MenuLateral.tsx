@@ -3,11 +3,11 @@ import { Add } from '@mui/icons-material';
 import { useMenuLateralContext } from '../../contexts';
 import { Box, Button, Drawer, useMediaQuery, useTheme } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { UsuarioModel } from '../../types/usuario.model.ts';
 import ListaProjetos from '../../components/projetos/ListaProjetos.tsx';
 import FormProjeto from '../../components/projetos/FormProjeto.tsx';
 import { ProjetoModel } from '../../types/projeto.model.ts';
 import { ProjetoService } from '../../services/ProjetoService.ts';
+import { useAuthContext } from '../../contexts/AuthContext.tsx';
 
 interface MenuLateralProps {
     children: React.ReactNode;
@@ -15,7 +15,7 @@ interface MenuLateralProps {
 
 const MenuLateral = ({ children }: MenuLateralProps) => {
 
-    const teste = { id: 1, nome: 'Teste Ceste fulano' } as UsuarioModel;
+    const { usuarioAtual } = useAuthContext();
 
     const theme = useTheme();
     const menorQueSm = useMediaQuery(theme.breakpoints.down('sm'));
@@ -35,17 +35,17 @@ const MenuLateral = ({ children }: MenuLateralProps) => {
     };
 
     const handleOnClose = (dados: Partial<ProjetoModel> | null) => {
-        if (dados) {
-            dados.criador = teste;
+        if (dados && usuarioAtual) {
+            dados.criador = usuarioAtual;
             ProjetoService.criar(dados).then(() => {
-                ProjetoService.buscarPorParticipanteId(teste.id)
+                ProjetoService.buscarPorParticipanteId(usuarioAtual.id)
                     .then(resposta => setProjetos(resposta));
             });
         }
         setFormProjetoOpen(false);
     };
 
-    return (
+    return !usuarioAtual ? (<></>) : (
         <>
             <Drawer open={isMenuAberto} variant={menorQueSm ? 'temporary' : 'permanent'} onClose={toggleMenuLateral}>
                 <Box
@@ -57,7 +57,7 @@ const MenuLateral = ({ children }: MenuLateralProps) => {
                         height: '100%'
                     }}>
                     <Box marginTop={theme.spacing(2)}>
-                        <InfoUsuarioLogado usuario={teste}/>
+                        <InfoUsuarioLogado usuario={usuarioAtual}/>
                     </Box>
                     <Box flex={1} marginTop={theme.spacing(4)}>
                         <ListaProjetos projetos={projetos}/>
@@ -81,7 +81,7 @@ const MenuLateral = ({ children }: MenuLateralProps) => {
                     ml: { sm: `${larguraDrawer}px` }
                 }}>
                 {children}
-                <FormProjeto open={formProjetoOpen} onClose={handleOnClose} dados={null} usuario={teste}/>
+                <FormProjeto open={formProjetoOpen} onClose={handleOnClose} dados={null} usuario={usuarioAtual}/>
             </Box>
         </>
     );
