@@ -13,15 +13,23 @@ server.get('/projetos/buscar-por-usuario/:idUsuario', (req, res) => {
 
     const projetos = db.get('projetos')
         .filter(projeto =>
-            projeto.participantes.some(participante => participante.id === idUsuario)
+            (projeto.participantes && projeto.participantes.some(participante => participante.id === idUsuario)) ||
+            projeto.criador.id === idUsuario
         )
         .value();
-
-    console.log(projetos); // Para verificar o que está sendo retornado
 
     res.jsonp(projetos);
 });
 
+// Middleware para buscar tarefas por projeto
+server.get('/tarefas/buscar-por-projeto/:idProjeto', (req, res) => {
+    const idProjeto = parseInt(req.params.idProjeto, 10);
+    const db = router.db;
+
+    const tarefas = db.get('tarefas').filter(tarefa => tarefa.projetoId === idProjeto).value();
+
+    res.jsonp(tarefas);
+});
 
 server.use(router);
 
