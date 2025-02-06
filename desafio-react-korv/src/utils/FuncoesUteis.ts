@@ -52,3 +52,7 @@ export function stringToColor(string: string) {
 
     return color;
 }
+
+export function isPresent(value: any): boolean {
+    return value !== null && value !== undefined;
+}
