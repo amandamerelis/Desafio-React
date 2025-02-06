@@ -1,9 +1,13 @@
 import { UsuarioModel } from './usuario.model.ts';
+import { SituacaoTarefaEnum } from './enums/situacao-tarefa.enum.ts';
 
 export interface TarefaModel {
     id: number,
-    nome: string,
+    titulo: string,
     descricao: string,
+    tags: string[],
+    situacao: SituacaoTarefaEnum,
     criador: UsuarioModel,
-    tags: string[]
+    dataCriacao: Date,
+    projetoId: number
 }
