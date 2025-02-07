@@ -35,12 +35,13 @@ const criar = async (projeto: Partial<ProjetoModel>): Promise<number> => {
     }
 };
 
-const atualizarPorId = async (id: number, projeto: Partial<ProjetoModel>): Promise<void> => {
+const atualizarPorId = async (id: number, projeto: Partial<ProjetoModel>): Promise<ProjetoModel | Error> => {
     try {
-        await Api.put(`/projetos/${id}`, projeto);
+        const { data } = await Api.put(`/projetos/${id}`, projeto);
+        return data;
     } catch (erro) {
         console.error(erro);
-        throw Error((erro as { message: string }).message || 'Erro ao atualizar projeto.');
+        return new Error((erro as { message: string }).message || 'Erro ao atualizar projeto.');
     }
 };
 

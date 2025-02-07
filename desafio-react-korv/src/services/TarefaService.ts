@@ -19,7 +19,6 @@ const buscarPorId = async (id: number): Promise<TarefaModel | Error> => {
 
 const criar = async (tarefa: Partial<TarefaModel>): Promise<number | Error> => {
     try {
-        tarefa.dataCriacao = new Date();
         const { data } = await Api.post('/tarefas', tarefa);
         atualizarProjetoComTarefaNova(data);
         return data.id;
