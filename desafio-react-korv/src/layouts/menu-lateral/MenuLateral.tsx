@@ -25,10 +25,12 @@ const MenuLateral = ({ children }: MenuLateralProps) => {
     const [projetos, setProjetos] = useState<ProjetoModel[]>([]);
 
     useEffect(() => {
-        ProjetoService.buscarPorParticipanteId(1)
-            .then(resposta => setProjetos(resposta));
+        if(usuarioAtual){
+            ProjetoService.buscarPorParticipanteId(usuarioAtual.id)
+                .then(resposta => setProjetos(resposta));
+        }
 
-    }, []);
+    }, [usuarioAtual]);
 
     const handleNovoProjeto = () => {
         setFormProjetoOpen(true);
