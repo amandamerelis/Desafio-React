@@ -3,7 +3,7 @@ import { TarefaModel } from '../../types/tarefa.model.ts';
 import { formatarData, stringToColor } from '../../utils/FuncoesUteis.ts';
 import AvatarComFoto from '../avatar/AvatarComFoto.tsx';
 import AvatarComIniciais from '../avatar/AvatarComIniciais.tsx';
-import { MoreVert } from '@mui/icons-material';
+import { Edit } from '@mui/icons-material';
 
 const separador = (
     <Box component="span" sx={{ display: 'inline-block', mx: '2px' }}>
@@ -12,17 +12,22 @@ const separador = (
 );
 
 interface CardTarefaProps {
-    tarefa: TarefaModel
+    tarefa: TarefaModel,
+    canEdit: boolean,
+    onEditar: (tarefa: TarefaModel) => void
 }
 
-const CardTarefa = ({ tarefa }: CardTarefaProps) => {
+const CardTarefa = ({ tarefa, onEditar, canEdit }: CardTarefaProps) => {
     const theme = useTheme();
+    const handleEditar = () =>{
+        onEditar(tarefa);
+    };
     return (
         <Card sx={{ width: theme.spacing(74), textAlign: 'start' }}>
             <CardHeader
                 title={<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <Typography variant="h6">{tarefa.titulo}</Typography>
-                    <IconButton><MoreVert/></IconButton>
+                    {canEdit && <IconButton onClick={handleEditar}><Edit/></IconButton>}
                 </Box>
                 }
                 subheader={

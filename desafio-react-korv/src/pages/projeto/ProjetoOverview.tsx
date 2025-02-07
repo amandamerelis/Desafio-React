@@ -40,6 +40,13 @@ const ProjetoOverview = () => {
         setFormTaskOpen(true);
     };
 
+    const handleEditarTarefa = (tarefa: TarefaModel) => {
+        if(podeEditar(tarefa)){
+            setTarefaFormData(tarefa);
+            setFormTaskOpen(true);
+        }
+    };
+
     const handleOnClose = (dados: Partial<TarefaModel> | null) => {
         if (dados && projeto && usuarioAtual) {
             dados.projetoId = projeto.id;
@@ -58,6 +65,13 @@ const ProjetoOverview = () => {
         setTarefaFormData(null);
         setFormTaskOpen(false);
     };
+
+    function podeEditar (tarefa: TarefaModel): boolean {
+        if(usuarioAtual && projeto){
+            return tarefa.criador.id === usuarioAtual.id || projeto.criador.id === usuarioAtual.id;
+        }
+        return false;
+    }
 
     const theme = useTheme();
     return (
@@ -86,8 +100,8 @@ const ProjetoOverview = () => {
                 </Box>
 
 
-                {projeto && tarefas.map((tarefa) => (
-                    <CardTarefa key={tarefa.id} tarefa={tarefa}/>
+                {projeto && usuarioAtual && tarefas.map((tarefa) => (
+                    <CardTarefa key={tarefa.id} tarefa={tarefa} onEditar={handleEditarTarefa} canEdit={podeEditar(tarefa)}/>
                 ))}
 
                 <FormTarefa open={formTaskOpen} onClose={handleOnClose} dados={tarefaFormData}/>
