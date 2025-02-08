@@ -1,7 +1,7 @@
 import { Api } from '../api/axios-config';
 import { ProjetoModel } from '../types/projeto.model.ts';
 
-const buscarPorId = async (id: number): Promise<ProjetoModel> => {
+const buscarPorId = async (id: number): Promise<ProjetoModel | Error> => {
 
     try {
         const { data } = await Api.get(`/projetos/${id}`);

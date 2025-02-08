@@ -1,5 +1,6 @@
 import { Api } from '../api/axios-config';
 import { TarefaModel } from '../types/tarefa.model.ts';
+import { SituacaoTarefaEnum } from '../types/enums/situacao-tarefa.enum.ts';
 
 const buscarPorId = async (id: number): Promise<TarefaModel | Error> => {
 
@@ -19,6 +20,7 @@ const buscarPorId = async (id: number): Promise<TarefaModel | Error> => {
 
 const criar = async (tarefa: Partial<TarefaModel>): Promise<number | Error> => {
     try {
+        tarefa.situacao = SituacaoTarefaEnum.PENDENTE;
         const { data } = await Api.post('/tarefas', tarefa);
         atualizarProjetoComTarefaNova(data);
         return data.id;

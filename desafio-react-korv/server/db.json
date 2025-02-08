@@ -3,95 +3,307 @@
     {
       "id": 1,
       "nome": "Amanda Merelis",
-      "login": "amandamerelis",
-      "senha": "admin123"
+      "login": "amanda",
+      "senha": "admin"
     },
     {
       "id": 2,
-      "nome": "Maria",
+      "nome": "Maria Luiza",
       "login": "maria",
       "senha": "12345",
       "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
+    },
+    {
+      "id": 3,
+      "nome": "João Pedro",
+      "login": "joao",
+      "senha": "12345"
+    },
+    {
+      "id": 4,
+      "nome": "Nick Jonas",
+      "login": "nick",
+      "senha": "12345"
     }
   ],
   "projetos": [
     {
-      "id": 1,
       "titulo": "Projeto A",
-      "descricao": "Descrição do projeto A",
-      "participantes": [
-        {
-          "id": 1,
-          "nome": "Amanda Merelis",
-          "login": "amandamerelis"
-        },
-        {
-          "id": 2,
-          "nome": "Maria",
-          "login": "maria",
-          "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
-        }
-      ],
+      "descricao": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
       "criador": {
         "id": 1,
         "nome": "Amanda Merelis",
         "login": "amandamerelis",
         "senha": "admin123"
       },
+      "participantes": [
+        {
+          "id": 2,
+          "nome": "Maria Luiza",
+          "login": "maria",
+          "senha": "12345",
+          "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
+        }
+      ],
       "tarefas": [
         {
-          "id": 1,
-          "nome": "Tarefa 1",
-          "descricao": "Descrição da tarefa 1",
+          "titulo": "Criar novo componente",
+          "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
           "tags": [
             "frontend",
-            "urgente"
-          ]
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "titulo": "Projeto B",
-      "descricao": "Descrição do projeto B",
-      "participantes": [
+            "dev"
+          ],
+          "situacao": "Feito",
+          "criador": {
+            "id": 1,
+            "nome": "Amanda Merelis",
+            "login": "amandamerelis",
+            "senha": "admin123"
+          },
+          "dataCriacao": "2025-02-07T02:00:41.570Z",
+          "projetoId": 1,
+          "id": 1
+        },
         {
-          "id": 1,
-          "nome": "Amanda Merelis",
-          "login": "amandamerelis"
+          "titulo": "Criar o style guide",
+          "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sodales egestas enim at rutrum. Suspendisse tristique.",
+          "tags": [
+            "design"
+          ],
+          "criador": {
+            "id": 2,
+            "nome": "Maria Luiza",
+            "login": "maria",
+            "senha": "12345",
+            "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
+          },
+          "dataCriacao": "2025-02-07T02:03:14.812Z",
+          "projetoId": 1,
+          "id": 3,
+          "situacao": "Em progresso"
+        },
+        {
+          "titulo": "teste",
+          "descricao": "teste",
+          "tags": [],
+          "criador": {
+            "id": 2,
+            "nome": "Maria Luiza",
+            "login": "maria",
+            "senha": "12345",
+            "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
+          },
+          "dataCriacao": "2025-02-07T20:59:39.520Z",
+          "situacao": "Pendente",
+          "projetoId": 1,
+          "id": 5
+        },
+        {
+          "titulo": "teste 2",
+          "descricao": "teste",
+          "tags": [],
+          "criador": {
+            "id": 2,
+            "nome": "Maria Luiza",
+            "login": "maria",
+            "senha": "12345",
+            "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
+          },
+          "dataCriacao": "2025-02-07T21:00:34.872Z",
+          "situacao": "Pendente",
+          "projetoId": 1,
+          "id": 6
         }
       ],
+      "id": 1
+    },
+    {
+      "titulo": "Projeto B",
+      "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
       "criador": {
         "id": 1,
         "nome": "Amanda Merelis",
         "login": "amandamerelis",
         "senha": "admin123"
       },
-      "tarefas": [
-      ]
+      "participantes": [
+        {
+          "id": 4,
+          "nome": "Nick Jonas",
+          "login": "nick",
+          "senha": "12345"
+        }
+      ],
+      "tarefas": [],
+      "id": 2
     },
     {
-      "id": 3,
       "titulo": "Projeto C",
-      "descricao": "Descrição do projeto C",
+      "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+      "criador": {
+        "id": 1,
+        "nome": "Amanda Merelis",
+        "login": "amandamerelis",
+        "senha": "admin123"
+      },
       "participantes": [
         {
           "id": 2,
-          "nome": "Maria",
+          "nome": "Maria Luiza",
           "login": "maria",
+          "senha": "12345",
           "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
+        },
+        {
+          "id": 3,
+          "nome": "João Pedro",
+          "login": "joao",
+          "senha": "12345"
         }
       ],
+      "tarefas": [
+        {
+          "titulo": "Levantar requisitos",
+          "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+          "tags": [
+            "analise",
+            "requisitos",
+            "documentação"
+          ],
+          "criador": {
+            "id": 2,
+            "nome": "Maria Luiza",
+            "login": "maria",
+            "senha": "12345",
+            "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
+          },
+          "dataCriacao": "2025-02-07T02:02:14.181Z",
+          "projetoId": 3,
+          "id": 2,
+          "situacao": "Pendente"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "titulo": "Projeto Maria",
+      "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sodales egestas enim at rutrum. Suspendisse tristique.",
       "criador": {
         "id": 2,
-        "nome": "Maria",
+        "nome": "Maria Luiza",
         "login": "maria",
+        "senha": "12345",
         "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
       },
+      "participantes": [],
       "tarefas": [
-      ]
+        {
+          "titulo": "teste",
+          "descricao": "testeste testeste testeste testeste testeste testeste testeste testeste testeste testeste testeste testeste ",
+          "tags": [],
+          "criador": {
+            "id": 2,
+            "nome": "Maria Luiza",
+            "login": "maria",
+            "senha": "12345",
+            "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
+          },
+          "dataCriacao": "2025-02-07T02:12:15.075Z",
+          "situacao": "Pendente",
+          "projetoId": 4,
+          "id": 4
+        }
+      ],
+      "id": 4
     }
   ],
   "tarefas": [
+    {
+      "id": 1,
+      "data": {
+        "current": {
+          "sortable": {
+            "containerId": "Feito",
+            "index": 0,
+            "items": [
+              1
+            ]
+          }
+        }
+      },
+      "rect": {
+        "current": {
+          "initial": {
+            "top": 188.5,
+            "left": 1418.5,
+            "width": 296,
+            "height": 262,
+            "bottom": 450.5,
+            "right": 1714.5
+          },
+          "translated": {
+            "top": 241.5,
+            "left": 1299.5,
+            "width": 296,
+            "height": 262,
+            "bottom": 503.5,
+            "right": 1595.5
+          }
+        }
+      },
+      "situacao": 1
+    },
+    {
+      "situacao": 2,
+      "id": 2
+    },
+    {
+      "situacao": 6,
+      "id": 3
+    },
+    {
+      "situacao": 4,
+      "id": 4
+    },
+    {
+      "situacao": 3,
+      "id": 5
+    },
+    {
+      "id": 6,
+      "data": {
+        "current": {
+          "sortable": {
+            "containerId": "Pendente",
+            "index": 1,
+            "items": [
+              5,
+              6
+            ]
+          }
+        }
+      },
+      "rect": {
+        "current": {
+          "initial": {
+            "top": 430.484375,
+            "left": 490.5,
+            "width": 296,
+            "height": 225.984375,
+            "bottom": 656.46875,
+            "right": 786.5
+          },
+          "translated": {
+            "top": 258.484375,
+            "left": 1078.5,
+            "width": 296,
+            "height": 225.984375,
+            "bottom": 484.46875,
+            "right": 1374.5
+          }
+        }
+      },
+      "situacao": "Em progresso"
+    }
   ]
 }

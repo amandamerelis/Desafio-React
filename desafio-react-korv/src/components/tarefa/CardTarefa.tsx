@@ -4,6 +4,7 @@ import { formatarData, stringToColor } from '../../utils/FuncoesUteis.ts';
 import AvatarComFoto from '../avatar/AvatarComFoto.tsx';
 import AvatarComIniciais from '../avatar/AvatarComIniciais.tsx';
 import { Edit } from '@mui/icons-material';
+import { useSortable } from '@dnd-kit/sortable';
 
 const separador = (
     <Box component="span" sx={{ display: 'inline-block', mx: '2px' }}>
@@ -19,15 +20,31 @@ interface CardTarefaProps {
 
 const CardTarefa = ({ tarefa, onEditar, canEdit }: CardTarefaProps) => {
     const theme = useTheme();
-    const handleEditar = () =>{
+
+    const handleEditar = () => {
         onEditar(tarefa);
     };
+
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+    } = useSortable({ id: tarefa.id });
+
+    const style = transform ? {
+        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+        cursor: 'grab'
+    } : undefined;
+
     return (
-        <Card sx={{ width: theme.spacing(74), textAlign: 'start' }}>
+        <Card ref={setNodeRef} sx={{ width: theme.spacing(74), textAlign: 'start', ...style }} {...listeners} {...attributes}>
             <CardHeader
                 title={<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <Typography variant="h6">{tarefa.titulo}</Typography>
-                    {canEdit && <IconButton onClick={handleEditar}><Edit/></IconButton>}
+                    {canEdit && <IconButton onClick={handleEditar}
+                        onMouseDown={(e) => e.stopPropagation()} // previne o início do drag
+                        onTouchStart={(e) => e.stopPropagation()}><Edit/></IconButton>}
                 </Box>
                 }
                 subheader={
