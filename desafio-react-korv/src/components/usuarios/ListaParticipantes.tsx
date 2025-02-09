@@ -32,6 +32,7 @@ const ListaParticipantes = ({ projeto, open, onClose }: ListaParticipantesProps)
 
     const { usuarioAtual } = useAuthContext();
     const [membrosAtualizados, setMembrosAtualizados] = useState<UsuarioModel[]>([]);
+    const [membrosOriginais, setMembrosOriginais] = useState<UsuarioModel[]>([]);
     const [usuarios, setUsuarios] = useState<UsuarioModel[]>([]);
 
     useEffect(() => {
@@ -50,6 +51,7 @@ const ListaParticipantes = ({ projeto, open, onClose }: ListaParticipantesProps)
             setUsuarios([...projeto.participantes, projeto.criador]);
         }
         setMembrosAtualizados(projeto.participantes);
+        setMembrosOriginais(projeto.participantes);
     }, [projeto, usuarioAtual]);
 
     const handleSubmit = () => {
@@ -66,6 +68,8 @@ const ListaParticipantes = ({ projeto, open, onClose }: ListaParticipantesProps)
     };
 
     const handleFecharLista = () => {
+        projeto.participantes = membrosOriginais;
+        setMembrosAtualizados(membrosOriginais);
         onClose();
     };
 
