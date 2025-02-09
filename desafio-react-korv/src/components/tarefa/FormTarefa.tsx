@@ -1,7 +1,7 @@
 import { Box, Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, TextField, useTheme } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { Add } from '@mui/icons-material';
-import { stringToColor } from '../../utils/FuncoesUteis.ts';
+import { stringToColor } from '../../utils/funcoesUteis.ts';
 import { TarefaModel } from '../../types/tarefa.model.ts';
 import { useEffect, useState } from 'react';
 

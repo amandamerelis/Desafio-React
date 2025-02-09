@@ -1,10 +1,25 @@
-import { Box, Card, CardContent, CardHeader, Chip, IconButton, Typography, useTheme } from '@mui/material';
+import {
+    Box,
+    Card,
+    CardContent,
+    CardHeader,
+    Chip,
+    IconButton,
+    ListItemIcon,
+    ListItemText,
+    Menu,
+    MenuItem,
+    Typography,
+    useTheme
+} from '@mui/material';
 import { TarefaModel } from '../../types/tarefa.model.ts';
-import { formatarData, stringToColor } from '../../utils/FuncoesUteis.ts';
+import { formatarData, stringToColor } from '../../utils/funcoesUteis.ts';
 import AvatarComFoto from '../avatar/AvatarComFoto.tsx';
 import AvatarComIniciais from '../avatar/AvatarComIniciais.tsx';
-import { Edit } from '@mui/icons-material';
-import { useSortable } from '@dnd-kit/sortable';
+import { ArrowLeft, ArrowRight, Delete, Edit, MoreVert } from '@mui/icons-material';
+import React from 'react';
+import { SituacaoTarefaEnum } from '../../types/enums/situacao-tarefa.enum.ts';
+import useMudarSituacaoTarefa from '../../hooks/useMudarSituacaoTarefa.tsx';
 
 const separador = (
     <Box component="span" sx={{ display: 'inline-block', mx: '2px' }}>
@@ -15,41 +30,87 @@ const separador = (
 interface CardTarefaProps {
     tarefa: TarefaModel,
     canEdit: boolean,
-    onEditar: (tarefa: TarefaModel) => void
+    onEditar: (tarefa: TarefaModel) => void,
+    onExcluir: (idTarefa: number) => void,
+    onMudarSituacao: (tarefa: TarefaModel) => void
 }
 
-const CardTarefa = ({ tarefa, onEditar, canEdit }: CardTarefaProps) => {
+const CardTarefa = ({ tarefa, onEditar, canEdit, onExcluir, onMudarSituacao }: CardTarefaProps) => {
     const theme = useTheme();
 
+    const [menuSuspenso, setMenuSuspenso] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(menuSuspenso);
+    const { mudarSituacao } = useMudarSituacaoTarefa();
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setMenuSuspenso(event.currentTarget);
+    };
+
+    const handleExcluir = () => {
+        setMenuSuspenso(null);
+        onExcluir(tarefa.id);
+    };
+
+    const handleOnClose = () => {
+        setMenuSuspenso(null);
+    };
+
     const handleEditar = () => {
+        setMenuSuspenso(null);
         onEditar(tarefa);
     };
 
-    const {
-        attributes,
-        listeners,
-        setNodeRef,
-        transform,
-    } = useSortable({ id: tarefa.id });
+    const handleAvancar = () => {
+        onMudarSituacao(mudarSituacao(tarefa, 'avancar'));
+    };
 
-    const style = transform ? {
-        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-        cursor: 'grab'
-    } : undefined;
+    const handleRetroceder = () => {
+        onMudarSituacao(mudarSituacao(tarefa, 'retroceder'));
+    };
+
+    function podeAvancar(): boolean {
+        return tarefa.situacao !== SituacaoTarefaEnum.FEITO;
+    }
+
+    function podeRetroceder(): boolean {
+        return tarefa.situacao !== SituacaoTarefaEnum.PENDENTE;
+    }
 
     return (
-        <Card ref={setNodeRef} sx={{ width: theme.spacing(74), textAlign: 'start', ...style }} {...listeners} {...attributes}>
+        <Card sx={{ width: theme.spacing(74), textAlign: 'start' }}>
             <CardHeader
                 title={<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <Typography variant="h6">{tarefa.titulo}</Typography>
-                    {canEdit && <IconButton onClick={handleEditar}
-                        onMouseDown={(e) => e.stopPropagation()} // previne o início do drag
-                        onTouchStart={(e) => e.stopPropagation()}><Edit/></IconButton>}
+                    {canEdit && <IconButton onClick={handleClick}><MoreVert/></IconButton>}
+
+                    <Menu
+                        id="basic-menu"
+                        anchorEl={menuSuspenso}
+                        open={open}
+                        onClose={handleOnClose}
+                        MenuListProps={{
+                            'aria-labelledby': 'basic-button',
+                        }}
+                    >
+                        <MenuItem onClick={handleEditar}>
+                            <ListItemIcon>
+                                <Edit fontSize="small"/>
+                            </ListItemIcon>
+                            <ListItemText>Editar</ListItemText></MenuItem>
+                        <MenuItem onClick={handleExcluir}>
+                            <ListItemIcon>
+                                <Delete fontSize="small"/>
+                            </ListItemIcon>
+                            <ListItemText>Excluir</ListItemText>
+                        </MenuItem>
+                    </Menu>
+
                 </Box>
                 }
                 subheader={
                     <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
-                        {formatarData(tarefa.dataCriacao, 'medio')} {separador} Criado por <b>{tarefa.criador.nome}</b>
+                        {formatarData(tarefa.dataCriacao, 'medio')} {separador} Criado
+                        por <b>{tarefa.criador.nome}</b>
                     </Typography>
                 }
             />
@@ -81,15 +142,20 @@ const CardTarefa = ({ tarefa, onEditar, canEdit }: CardTarefaProps) => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    marginTop: 2
+                    marginTop: 2,
+                    gap: 2
                 }}>
+                    <IconButton disabled={!podeRetroceder()} onClick={handleRetroceder}><ArrowLeft/></IconButton>
                     {tarefa.criador.urlFoto
                         ? <AvatarComFoto tamanho="pequeno" estilo="circular" urlFoto={tarefa.criador.urlFoto}/>
                         : <AvatarComIniciais tamanho="pequeno" estilo="circular" nome={tarefa.criador.nome}/>}
+                    <IconButton disabled={!podeAvancar()} onClick={handleAvancar}><ArrowRight/></IconButton>
+
                 </Box>
 
             </CardContent>
         </Card>
+
     );
 };
 

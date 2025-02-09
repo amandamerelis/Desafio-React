@@ -6,7 +6,8 @@ import { BrowserRouter } from 'react-router-dom';
 import MenuLateral from './layouts/menu-lateral/MenuLateral.tsx';
 import { MenuLateralProvider } from './contexts';
 import { useAuthContext } from './contexts/AuthContext.tsx';
-import { isPresent } from './utils/FuncoesUteis.ts';
+import { isPresent } from './utils/funcoesUteis.ts';
+import { ProjetoProvider } from './contexts/ProjetoContext.tsx';
 
 function App() {
 
@@ -14,18 +15,22 @@ function App() {
 
     return (
         <ThemeProvider theme={LightTheme}>
-            <CssBaseline />
+            <CssBaseline/>
             <Box sx={{ display: 'flex', alignItens: 'center', justifyContent: 'center', height: '100vh' }}>
+
                 <MenuLateralProvider>
                     <BrowserRouter>
 
                         {isPresent(usuarioAtual) ?
-                            <MenuLateral>
-                                <PrivateRoutes />
-                            </MenuLateral> : <PublicRoutes />}
+                            (<ProjetoProvider usuarioId={usuarioAtual!.id}>
+                                <MenuLateral>
+                                    <PrivateRoutes/>
+                                </MenuLateral> </ProjetoProvider>)
+                            : (<PublicRoutes/>)}
 
                     </BrowserRouter>
                 </MenuLateralProvider>
+
             </Box>
         </ThemeProvider>
     );

@@ -1,14 +1,11 @@
 import ProjetoLink from './ProjetoLink.tsx';
 import { Box, List, useTheme } from '@mui/material';
-import { ProjetoModel } from '../../types/projeto.model.ts';
+import { useProjetoContext } from '../../contexts/ProjetoContext.tsx';
 
-interface ListaProjetosProps {
-    projetos: ProjetoModel[]
-}
-
-const ListaProjetos = ({ projetos }: ListaProjetosProps) => {
+const ListaProjetos = () => {
 
     const theme = useTheme();
+    const { projetos } = useProjetoContext();
 
     return (
         <Box sx={{

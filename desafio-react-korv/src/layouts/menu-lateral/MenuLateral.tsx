@@ -8,6 +8,7 @@ import FormProjeto from '../../components/projetos/FormProjeto.tsx';
 import { ProjetoModel } from '../../types/projeto.model.ts';
 import { ProjetoService } from '../../services/ProjetoService.ts';
 import { useAuthContext } from '../../contexts/AuthContext.tsx';
+import { useProjetoContext } from '../../contexts/ProjetoContext.tsx';
 
 interface MenuLateralProps {
     children: React.ReactNode;
@@ -22,15 +23,13 @@ const MenuLateral = ({ children }: MenuLateralProps) => {
     const { isMenuAberto, toggleMenuLateral, larguraDrawer } = useMenuLateralContext();
 
     const [formProjetoOpen, setFormProjetoOpen] = useState(false);
-    const [projetos, setProjetos] = useState<ProjetoModel[]>([]);
+    const { buscarProjetos, atualizarListaProjetos } = useProjetoContext();
 
     useEffect(() => {
-        if(usuarioAtual){
-            ProjetoService.buscarPorParticipanteId(usuarioAtual.id)
-                .then(resposta => setProjetos(resposta));
+        if (usuarioAtual) {
+            buscarProjetos();
         }
-
-    }, [usuarioAtual]);
+    }, [usuarioAtual, buscarProjetos]);
 
     const handleNovoProjeto = () => {
         setFormProjetoOpen(true);
@@ -41,7 +40,7 @@ const MenuLateral = ({ children }: MenuLateralProps) => {
             dados.criador = usuarioAtual;
             ProjetoService.criar(dados).then(() => {
                 ProjetoService.buscarPorParticipanteId(usuarioAtual.id)
-                    .then(resposta => setProjetos(resposta));
+                    .then(resposta => atualizarListaProjetos(resposta));
             });
         }
         setFormProjetoOpen(false);
@@ -49,6 +48,7 @@ const MenuLateral = ({ children }: MenuLateralProps) => {
 
     return !usuarioAtual ? (<></>) : (
         <>
+
             <Drawer open={isMenuAberto} variant={menorQueSm ? 'temporary' : 'permanent'} onClose={toggleMenuLateral}>
                 <Box
                     sx={{
@@ -62,7 +62,7 @@ const MenuLateral = ({ children }: MenuLateralProps) => {
                         <InfoUsuarioLogado usuario={usuarioAtual}/>
                     </Box>
                     <Box flex={1} marginTop={theme.spacing(4)}>
-                        <ListaProjetos projetos={projetos}/>
+                        <ListaProjetos />
                     </Box>
                     <Button sx={{
                         marginY: theme.spacing(6),

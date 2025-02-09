@@ -2,28 +2,28 @@
   "usuarios": [
     {
       "id": 1,
-      "nome": "Amanda Merelis",
-      "login": "amanda",
-      "senha": "admin"
+      "nome": "Kim Crawford",
+      "login": "kim",
+      "senha": "kim123"
     },
     {
       "id": 2,
       "nome": "Maria Luiza",
       "login": "maria",
-      "senha": "12345",
+      "senha": "maria123",
       "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
     },
     {
       "id": 3,
       "nome": "João Pedro",
       "login": "joao",
-      "senha": "12345"
+      "senha": "joao123"
     },
     {
       "id": 4,
       "nome": "Nick Jonas",
       "login": "nick",
-      "senha": "12345"
+      "senha": "nick123"
     }
   ],
   "projetos": [
@@ -32,87 +32,91 @@
       "descricao": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
       "criador": {
         "id": 1,
-        "nome": "Amanda Merelis",
-        "login": "amandamerelis",
-        "senha": "admin123"
+        "nome": "Kim Crawford",
+        "login": "kim",
+        "senha": "kim123123"
       },
       "participantes": [
         {
           "id": 2,
           "nome": "Maria Luiza",
           "login": "maria",
-          "senha": "12345",
+          "senha": "maria123",
           "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
         }
       ],
       "tarefas": [
         {
-          "titulo": "Criar novo componente",
-          "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+          "titulo": "Corrigir componente modal",
+          "descricao": "Nunc lacinia fringilla molestie. Nullam laoreet metus et suscipit rhoncus. ",
           "tags": [
-            "frontend",
-            "dev"
+            "Desenvolvimento"
           ],
-          "situacao": "Feito",
           "criador": {
             "id": 1,
-            "nome": "Amanda Merelis",
-            "login": "amandamerelis",
-            "senha": "admin123"
+            "nome": "Kim Crawford",
+            "login": "kim",
+            "senha": "kim123"
           },
-          "dataCriacao": "2025-02-07T02:00:41.570Z",
+          "dataCriacao": "2025-02-09T22:27:49.576Z",
+          "situacao": "Em progresso",
           "projetoId": 1,
-          "id": 1
+          "id": 4
         },
         {
-          "titulo": "Criar o style guide",
-          "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sodales egestas enim at rutrum. Suspendisse tristique.",
+          "titulo": "Definir tipografia do projeto",
+          "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non finibus velit, a suscipit risus. Sed pharetra, massa non pretium tempus, nisi magna consequat ligula, et posuere elit leo et elit. Phasellus quis turpis purus.",
           "tags": [
-            "design"
+            "Design"
           ],
           "criador": {
-            "id": 2,
-            "nome": "Maria Luiza",
-            "login": "maria",
-            "senha": "12345",
-            "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
+            "id": 1,
+            "nome": "Kim Crawford",
+            "login": "kim",
+            "senha": "kim123"
           },
-          "dataCriacao": "2025-02-07T02:03:14.812Z",
-          "projetoId": 1,
-          "id": 3,
-          "situacao": "Em progresso"
-        },
-        {
-          "titulo": "teste",
-          "descricao": "teste",
-          "tags": [],
-          "criador": {
-            "id": 2,
-            "nome": "Maria Luiza",
-            "login": "maria",
-            "senha": "12345",
-            "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
-          },
-          "dataCriacao": "2025-02-07T20:59:39.520Z",
-          "situacao": "Pendente",
+          "dataCriacao": "2025-02-09T22:28:09.474Z",
+          "situacao": "Feito",
           "projetoId": 1,
           "id": 5
         },
         {
-          "titulo": "teste 2",
-          "descricao": "teste",
-          "tags": [],
+          "titulo": "Criar tabela de produtos",
+          "descricao": "Phasellus non finibus velit, a suscipit risus. Sed pharetra, massa non pretium tempus, nisi magna consequat ligula. Phasellus quis turpis purus. Nunc lacinia fringilla molestie. Nullam laoreet metus et suscipit rhoncus. ",
+          "tags": [
+            "Desenvolvimento",
+            "Frontend"
+          ],
           "criador": {
             "id": 2,
             "nome": "Maria Luiza",
             "login": "maria",
-            "senha": "12345",
+            "senha": "maria123",
             "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
           },
-          "dataCriacao": "2025-02-07T21:00:34.872Z",
+          "dataCriacao": "2025-02-09T22:34:29.207Z",
           "situacao": "Pendente",
           "projetoId": 1,
           "id": 6
+        },
+        {
+          "titulo": "Criar serviço de listagem de produtos",
+          "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non finibus velit, a suscipit risus. Sed pharetra, massa non pretium tempus, nisi magna consequat ligula. Phasellus quis turpis purus. Nunc lacinia fringilla molestie.",
+          "tags": [
+            "Desenvolvimento",
+            "Backend"
+          ],
+          "criador": {
+            "id": 2,
+            "nome": "Maria Luiza",
+            "login": "maria",
+            "senha": "maria123",
+            "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
+          },
+          "dataCriacao": "2025-02-09T22:35:05.054Z",
+          "situacao": "Em progresso",
+          "projetoId": 1,
+          "id": 7
         }
       ],
       "id": 1
@@ -122,19 +126,37 @@
       "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
       "criador": {
         "id": 1,
-        "nome": "Amanda Merelis",
-        "login": "amandamerelis",
-        "senha": "admin123"
+        "nome": "Kim Crawford",
+        "login": "kim",
+        "senha": "kim123123"
       },
       "participantes": [
         {
           "id": 4,
           "nome": "Nick Jonas",
           "login": "nick",
-          "senha": "12345"
+          "senha": "nick123"
         }
       ],
-      "tarefas": [],
+      "tarefas": [
+        {
+          "titulo": "Reunião com stackholders",
+          "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non finibus velit, a suscipit risus. Sed pharetra, massa non pretium tempus, nisi magna. Phasellus quis turpis purus. Nunc lacinia fringilla molestie.",
+          "tags": [
+            "Requisitos"
+          ],
+          "criador": {
+            "id": 4,
+            "nome": "Nick Jonas",
+            "login": "nick",
+            "senha": "nick123"
+          },
+          "dataCriacao": "2025-02-09T22:36:56.182Z",
+          "situacao": "Pendente",
+          "projetoId": 2,
+          "id": 9
+        }
+      ],
       "id": 2
     },
     {
@@ -142,23 +164,23 @@
       "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
       "criador": {
         "id": 1,
-        "nome": "Amanda Merelis",
-        "login": "amandamerelis",
-        "senha": "admin123"
+        "nome": "Kim Crawford",
+        "login": "kim",
+        "senha": "kim123123"
       },
       "participantes": [
         {
           "id": 2,
           "nome": "Maria Luiza",
           "login": "maria",
-          "senha": "12345",
+          "senha": "maria123",
           "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
         },
         {
           "id": 3,
           "nome": "João Pedro",
           "login": "joao",
-          "senha": "12345"
+          "senha": "joao123"
         }
       ],
       "tarefas": [
@@ -174,7 +196,7 @@
             "id": 2,
             "nome": "Maria Luiza",
             "login": "maria",
-            "senha": "12345",
+            "senha": "maria123",
             "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
           },
           "dataCriacao": "2025-02-07T02:02:14.181Z",
@@ -192,26 +214,30 @@
         "id": 2,
         "nome": "Maria Luiza",
         "login": "maria",
-        "senha": "12345",
+        "senha": "maria123",
         "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
       },
       "participantes": [],
       "tarefas": [
         {
-          "titulo": "teste",
-          "descricao": "testeste testeste testeste testeste testeste testeste testeste testeste testeste testeste testeste testeste ",
-          "tags": [],
+          "titulo": "Criar protótipo no Figma",
+          "descricao": "Phasellus quis turpis purus. Nunc lacinia fringilla molestie. Nullam laoreet metus et suscipit rhoncus. ",
+          "tags": [
+            "Design",
+            "Figma",
+            "Prototipação"
+          ],
           "criador": {
             "id": 2,
             "nome": "Maria Luiza",
             "login": "maria",
-            "senha": "12345",
+            "senha": "maria123",
             "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
           },
-          "dataCriacao": "2025-02-07T02:12:15.075Z",
+          "dataCriacao": "2025-02-09T22:36:02.077Z",
           "situacao": "Pendente",
           "projetoId": 4,
-          "id": 4
+          "id": 8
         }
       ],
       "id": 4
@@ -219,91 +245,133 @@
   ],
   "tarefas": [
     {
-      "id": 1,
-      "data": {
-        "current": {
-          "sortable": {
-            "containerId": "Feito",
-            "index": 0,
-            "items": [
-              1
-            ]
-          }
-        }
+      "titulo": "Levantar requisitos",
+      "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+      "tags": [
+        "analise",
+        "requisitos",
+        "documentação"
+      ],
+      "criador": {
+        "id": 2,
+        "nome": "Maria Luiza",
+        "login": "maria",
+        "senha": "maria123",
+        "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
       },
-      "rect": {
-        "current": {
-          "initial": {
-            "top": 188.5,
-            "left": 1418.5,
-            "width": 296,
-            "height": 262,
-            "bottom": 450.5,
-            "right": 1714.5
-          },
-          "translated": {
-            "top": 241.5,
-            "left": 1299.5,
-            "width": 296,
-            "height": 262,
-            "bottom": 503.5,
-            "right": 1595.5
-          }
-        }
+      "dataCriacao": "2025-02-07T02:02:14.181Z",
+      "projetoId": 3,
+      "id": 2,
+      "situacao": "Pendente"
+    },
+    {
+      "titulo": "Corrigir componente modal",
+      "descricao": "Nunc lacinia fringilla molestie. Nullam laoreet metus et suscipit rhoncus. ",
+      "tags": [
+        "Desenvolvimento"
+      ],
+      "criador": {
+        "id": 1,
+        "nome": "Kim Crawford",
+        "login": "kim",
+        "senha": "kim123"
       },
-      "situacao": 1
-    },
-    {
-      "situacao": 2,
-      "id": 2
-    },
-    {
-      "situacao": 6,
-      "id": 3
-    },
-    {
-      "situacao": 4,
+      "dataCriacao": "2025-02-09T22:27:49.576Z",
+      "situacao": "Em progresso",
+      "projetoId": 1,
       "id": 4
     },
     {
-      "situacao": 3,
+      "titulo": "Definir tipografia do projeto",
+      "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non finibus velit, a suscipit risus. Sed pharetra, massa non pretium tempus, nisi magna consequat ligula, et posuere elit leo et elit. Phasellus quis turpis purus.",
+      "tags": [
+        "Design"
+      ],
+      "criador": {
+        "id": 1,
+        "nome": "Kim Crawford",
+        "login": "kim",
+        "senha": "kim123"
+      },
+      "dataCriacao": "2025-02-09T22:28:09.474Z",
+      "situacao": "Feito",
+      "projetoId": 1,
       "id": 5
     },
     {
-      "id": 6,
-      "data": {
-        "current": {
-          "sortable": {
-            "containerId": "Pendente",
-            "index": 1,
-            "items": [
-              5,
-              6
-            ]
-          }
-        }
+      "titulo": "Criar tabela de produtos",
+      "descricao": "Phasellus non finibus velit, a suscipit risus. Sed pharetra, massa non pretium tempus, nisi magna consequat ligula. Phasellus quis turpis purus. Nunc lacinia fringilla molestie. Nullam laoreet metus et suscipit rhoncus. ",
+      "tags": [
+        "Desenvolvimento",
+        "Frontend"
+      ],
+      "criador": {
+        "id": 2,
+        "nome": "Maria Luiza",
+        "login": "maria",
+        "senha": "maria123",
+        "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
       },
-      "rect": {
-        "current": {
-          "initial": {
-            "top": 430.484375,
-            "left": 490.5,
-            "width": 296,
-            "height": 225.984375,
-            "bottom": 656.46875,
-            "right": 786.5
-          },
-          "translated": {
-            "top": 258.484375,
-            "left": 1078.5,
-            "width": 296,
-            "height": 225.984375,
-            "bottom": 484.46875,
-            "right": 1374.5
-          }
-        }
+      "dataCriacao": "2025-02-09T22:34:29.207Z",
+      "situacao": "Pendente",
+      "projetoId": 1,
+      "id": 6
+    },
+    {
+      "titulo": "Criar serviço de listagem de produtos",
+      "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non finibus velit, a suscipit risus. Sed pharetra, massa non pretium tempus, nisi magna consequat ligula. Phasellus quis turpis purus. Nunc lacinia fringilla molestie.",
+      "tags": [
+        "Desenvolvimento",
+        "Backend"
+      ],
+      "criador": {
+        "id": 2,
+        "nome": "Maria Luiza",
+        "login": "maria",
+        "senha": "maria123",
+        "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
       },
-      "situacao": "Em progresso"
+      "dataCriacao": "2025-02-09T22:35:05.054Z",
+      "situacao": "Em progresso",
+      "projetoId": 1,
+      "id": 7
+    },
+    {
+      "titulo": "Criar protótipo no Figma",
+      "descricao": "Phasellus quis turpis purus. Nunc lacinia fringilla molestie. Nullam laoreet metus et suscipit rhoncus. ",
+      "tags": [
+        "Design",
+        "Figma",
+        "Prototipação"
+      ],
+      "criador": {
+        "id": 2,
+        "nome": "Maria Luiza",
+        "login": "maria",
+        "senha": "maria123",
+        "urlFoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNJryFTSQUV8Zuu_EGw2iUCpMbIIKWHBl2eQ&s"
+      },
+      "dataCriacao": "2025-02-09T22:36:02.077Z",
+      "situacao": "Pendente",
+      "projetoId": 4,
+      "id": 8
+    },
+    {
+      "titulo": "Reunião com stackholders",
+      "descricao": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non finibus velit, a suscipit risus. Sed pharetra, massa non pretium tempus, nisi magna. Phasellus quis turpis purus. Nunc lacinia fringilla molestie.",
+      "tags": [
+        "Requisitos"
+      ],
+      "criador": {
+        "id": 4,
+        "nome": "Nick Jonas",
+        "login": "nick",
+        "senha": "nick123"
+      },
+      "dataCriacao": "2025-02-09T22:36:56.182Z",
+      "situacao": "Pendente",
+      "projetoId": 2,
+      "id": 9
     }
   ]
 }

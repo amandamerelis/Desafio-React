@@ -8,15 +8,15 @@ interface ProjetoProps {
     onClick?: (() => void | undefined);
 }
 
-const ProjetoLink = (props: ProjetoProps) => {
+const ProjetoLink = ({ projeto, onClick }: ProjetoProps) => {
     const theme = useTheme();
     const navigate = useNavigate();
-    const pathAtual = useResolvedPath(`/projetos/${props.projeto.id}`);
+    const pathAtual = useResolvedPath(`/projetos/${projeto.id}`);
     const match = useMatch({ path: pathAtual.pathname, end: true });
 
     function handleClick(): void {
-        navigate(`/projetos/${props.projeto.id}`);
-        props.onClick?.();
+        navigate(`/projetos/${projeto.id}`);
+        onClick?.();
     }
 
     return (
@@ -24,7 +24,7 @@ const ProjetoLink = (props: ProjetoProps) => {
             <ListItemIcon>
                 <GridViewOutlined/>
             </ListItemIcon>
-            <ListItemText primary={props.projeto.titulo} />
+            <ListItemText primary={projeto.titulo}/>
             <Box display="flex" alignItems="center" justifyContent="center"
                 sx={{
                     minWidth: theme.spacing(6), height: theme.spacing(6),
@@ -32,7 +32,7 @@ const ProjetoLink = (props: ProjetoProps) => {
                     bgcolor: 'black',
                 }}>
                 <Typography sx={{ color: '#FFF', fontSize: 12 }}>
-                    {props.projeto.tarefas.length}
+                    {projeto.tarefas.length}
                 </Typography>
             </Box>
         </ListItemButton>

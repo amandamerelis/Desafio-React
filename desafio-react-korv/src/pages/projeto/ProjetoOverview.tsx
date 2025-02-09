@@ -7,55 +7,44 @@ import FormTarefa from '../../components/tarefa/FormTarefa.tsx';
 import { useParams } from 'react-router-dom';
 import { ProjetoService } from '../../services/ProjetoService.ts';
 import { TarefaModel } from '../../types/tarefa.model.ts';
-import { TarefaService } from '../../services/TarefaService.ts';
-import { useAuthContext } from '../../contexts/AuthContext.tsx';
 import ListaParticipantes from '../../components/usuarios/ListaParticipantes.tsx';
-import { closestCorners, DndContext, DragEndEvent } from '@dnd-kit/core';
-import { SituacaoTarefaEnum } from '../../types/enums/situacao-tarefa.enum.ts';
+import useFormTarefa from '../../hooks/useFormTarefa.tsx';
+import useColunasKanban from '../../hooks/useColunasKanban.tsx';
+import { useProjetoContext } from '../../contexts/ProjetoContext.tsx';
 import Coluna from '../../components/coluna/Coluna.tsx';
+import { TarefaService } from '../../services/TarefaService.ts';
 
 const ProjetoOverview = () => {
 
     const { id } = useParams<'id'>();
-    const { usuarioAtual } = useAuthContext();
+    const {
+        isFormTarefaOpen,
+        novoRegistro,
+        editarRegistro,
+        formDataTarefa,
+        fecharFormTarefa,
+        salvarTarefa
+    } = useFormTarefa();
+    const { colunas, distribuirTarefasNasColunas } = useColunasKanban();
 
-    const buscarProjetoPorId = useCallback(async (id: number) => {
+    const buscarProjetoPorId = useCallback((id: number) => {
         try {
-            const projeto = await ProjetoService.buscarPorId(id);
-            if (projeto instanceof Error) {
-                alert('Erro ao buscar projeto');
-            } else {
-                setProjeto(projeto);
-                distribuirTarefasNasColunas(projeto);
-            }
+            ProjetoService.buscarPorId(id).then((projeto) => {
+                if (projeto instanceof Error) {
+                    alert('Erro ao buscar projeto');
+                } else {
+                    setProjeto(projeto);
+                    distribuirTarefasNasColunas(projeto);
+                }
+            });
         } catch (error) {
             console.error('Erro ao buscar projeto:', error);
         }
-    }, []);
-
-    const [colunas, setColunas] = useState({
-        pendente: {
-            id: SituacaoTarefaEnum.PENDENTE,
-            titulo: SituacaoTarefaEnum.PENDENTE,
-            tarefas: [] as TarefaModel[]
-        },
-        emProgresso: {
-            id: SituacaoTarefaEnum.EM_PROGRESSO,
-            titulo: SituacaoTarefaEnum.EM_PROGRESSO,
-            tarefas: [] as TarefaModel[]
-        },
-        feito: {
-            id: SituacaoTarefaEnum.FEITO,
-            titulo: SituacaoTarefaEnum.FEITO,
-            tarefas: [] as TarefaModel[]
-        },
-    });
+    }, [distribuirTarefasNasColunas]);
 
     const [projeto, setProjeto] = useState<ProjetoModel>();
-    const [tarefaFormData, setTarefaFormData] = useState<TarefaModel | null>(null);
-
-    const [formTaskOpen, setFormTaskOpen] = useState(false);
     const [listaParticipantesOpen, setListaParticipantesOpen] = useState(false);
+    const { atualizarProjeto } = useProjetoContext();
 
     useEffect(() => {
         if (id) {
@@ -64,99 +53,61 @@ const ProjetoOverview = () => {
     }, [id, buscarProjetoPorId]);
 
     const handleNovaTarefa = () => {
-        setTarefaFormData(null);
-        setFormTaskOpen(true);
+        novoRegistro();
     };
 
     const handleEditarTarefa = (tarefa: TarefaModel) => {
-        setTarefaFormData(tarefa);
-        setFormTaskOpen(true);
-
+        editarRegistro(tarefa);
     };
 
-    const distribuirTarefasNasColunas = useCallback((projetoAtualizado: ProjetoModel) => {
-        if (!projetoAtualizado) return;
+    const handleExcluirTarefa = useCallback(async (idTarefa: number) => {
+        await TarefaService.excluirPorId(idTarefa, projeto!.id);
+        TarefaService.buscarPorProjetoId(projeto!.id).then(resposta => {
 
-        setColunas(prevState => ({
-            ...prevState,
-            pendente: {
-                ...prevState.pendente,
-                tarefas: projetoAtualizado.tarefas.filter(tarefa => tarefa.situacao === SituacaoTarefaEnum.PENDENTE),
-            },
-            emProgresso: {
-                ...prevState.emProgresso,
-                tarefas: projetoAtualizado.tarefas.filter(tarefa => tarefa.situacao === SituacaoTarefaEnum.EM_PROGRESSO),
-            },
-            feito: {
-                ...prevState.feito,
-                tarefas: projetoAtualizado.tarefas.filter(tarefa => tarefa.situacao === SituacaoTarefaEnum.FEITO),
-            }
-        }));
-    }, []);
+            const projetoAtualizado = {
+                ...projeto,
+                tarefas: resposta
+            } as ProjetoModel;
 
+            setProjeto(projetoAtualizado);
+            atualizarProjeto(projetoAtualizado);
+            distribuirTarefasNasColunas(projetoAtualizado);
+        });
+    }, [projeto, atualizarProjeto, distribuirTarefasNasColunas]);
 
-    const handleOnClose = (dados: Partial<TarefaModel> | null) => {
-        if (dados && projeto && usuarioAtual) {
-            dados.projetoId = projeto.id;
-            if (dados.id) {
-                TarefaService.atualizarPorId(dados.id, dados).then(() => {
-                    TarefaService.buscarPorProjetoId(projeto.id).then(resp => setProjeto(prev => {
-                        prev!.tarefas = resp;
-                        return prev;
-                    }));
-                });
-            } else {
-                dados.criador = usuarioAtual;
-                dados.dataCriacao = new Date();
-                TarefaService.criar(dados)
-                    .then(() => {
-                        return TarefaService.buscarPorProjetoId(projeto.id);
-                    })
-                    .then(tarefasAtualizadas => {
-                        setProjeto(prev => prev ? {
-                            ...prev,
-                            tarefas: tarefasAtualizadas
-                        } : prev);
-                        distribuirTarefasNasColunas({ ...projeto, tarefas: tarefasAtualizadas });
-                    })
-                    .catch(error => {
-                        console.error('Erro ao atualizar tarefa:', error);
-                    });
-            }
+    const handleOnCloseTarefaForm = (dados: Partial<TarefaModel> | null) => {
+        if (dados && projeto) {
+            salvarTarefa(dados, projeto.id).then(tarefasAtualizadas => {
+
+                const projetoAtualizado = {
+                    ...projeto,
+                    tarefas: tarefasAtualizadas,
+                } as ProjetoModel;
+
+                setProjeto(projetoAtualizado);
+                atualizarProjeto(projetoAtualizado);
+                distribuirTarefasNasColunas(projetoAtualizado);
+            });
         }
-        setTarefaFormData(null);
-        setFormTaskOpen(false);
+        fecharFormTarefa();
     };
 
-    const atualizarTarefa = useCallback(async (idTarefa: number, tarefa: Partial<TarefaModel>) => {
-        if (!projeto) return;
+    const handleMudarSituacaoTarefa = (tarefa: TarefaModel) => {
 
-        try {
-            await TarefaService.atualizarPorId(idTarefa, tarefa);
-            const tarefasAtualizadas = await TarefaService.buscarPorProjetoId(projeto.id);
+        if (projeto) {
+            salvarTarefa(tarefa, projeto.id).then(tarefasAtualizadas => {
+                const projetoAtualizado = {
+                    ...projeto,
+                    tarefas: tarefasAtualizadas,
+                } as ProjetoModel;
 
-            setProjeto(prev => prev ? { ...prev, tarefas: tarefasAtualizadas } : prev);
-            distribuirTarefasNasColunas({ ...projeto, tarefas: tarefasAtualizadas });
-        } catch (error) {
-            console.error('Erro ao atualizar tarefa:', error);
+                setProjeto(projetoAtualizado);
+                atualizarProjeto(projetoAtualizado);
+                distribuirTarefasNasColunas(projetoAtualizado);
+            });
         }
-    }, [projeto, distribuirTarefasNasColunas]);
 
-
-    const handleDragEnd = useCallback(async (event: DragEndEvent) => {
-        const { active, over } = event;
-
-        if (!over || !active.data.current) return;
-
-        const tarefaAtualizada = { situacao: over.id as SituacaoTarefaEnum };
-
-        try {
-            await atualizarTarefa(Number(active.id), tarefaAtualizada);
-        } catch (error) {
-            console.error('Erro ao mover tarefa:', error);
-        }
-    }, [atualizarTarefa]);
-
+    };
 
     const theme = useTheme();
     return (
@@ -184,35 +135,28 @@ const ProjetoOverview = () => {
                     </Button>
                 </Box>
 
+                <Box sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItens: 'flex-start',
+                    gap: 6
+                }}>
 
-                <DndContext
-                    collisionDetection={closestCorners}
-                    onDragEnd={handleDragEnd}
-                >
-                    <Box sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItens: 'flex-start',
-                        gap: 6,
-                        height: '100%'
-                    }}>
-                        {Object.values(colunas).map((coluna) => (
-                            <Coluna
-                                key={coluna.id}
-                                idColuna={coluna.id}
-                                titulo={coluna.titulo}
-                                tarefas={coluna.tarefas}
-                                onEditarTarefa={handleEditarTarefa}
-                                idCriadorProjeto={projeto.criador.id}
-                            />
-                        ))}
-                    </Box>
-                </DndContext>
-                {/*{projeto && usuarioAtual && tarefas.map((tarefa) => (*/}
-                {/*    <CardTarefa key={tarefa.id} tarefa={tarefa} onEditar={handleEditarTarefa} canEdit={podeEditar(tarefa)}/>*/}
-                {/*))}*/}
+                    {Object.values(colunas).map((coluna) => (
+                        <Coluna
+                            key={coluna.id}
+                            titulo={coluna.titulo}
+                            tarefas={coluna.tarefas}
+                            onEditarTarefa={handleEditarTarefa}
+                            onExcluirTarefa={handleExcluirTarefa}
+                            onMudarSituacao={handleMudarSituacaoTarefa}
+                            idCriadorProjeto={projeto.criador.id}
+                        />
+                    ))}
 
-                <FormTarefa open={formTaskOpen} onClose={handleOnClose} dados={tarefaFormData}/>
+                </Box>
+
+                <FormTarefa open={isFormTarefaOpen} onClose={handleOnCloseTarefaForm} dados={formDataTarefa}/>
                 <ListaParticipantes projeto={projeto} open={listaParticipantesOpen}
                     onClose={() => setListaParticipantesOpen(false)}/>
             </Box>}

@@ -1,5 +1,5 @@
 import { Avatar } from '@mui/material';
-import { stringToColor } from '../../utils/FuncoesUteis.ts';
+import { stringToColor } from '../../utils/funcoesUteis.ts';
 
 type EstiloAvatar = 'circular' | 'rounded';
 type TamanhoAvatar = 'pequeno' | 'medio' | 'grande';

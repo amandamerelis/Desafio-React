@@ -1,6 +1,7 @@
 import { Api } from '../api/axios-config';
 import { TarefaModel } from '../types/tarefa.model.ts';
 import { SituacaoTarefaEnum } from '../types/enums/situacao-tarefa.enum.ts';
+import { ProjetoModel } from '../types/projeto.model.ts';
 
 const buscarPorId = async (id: number): Promise<TarefaModel | Error> => {
 
@@ -41,9 +42,10 @@ const atualizarPorId = async (id: number, tarefa: Partial<TarefaModel>): Promise
     }
 };
 
-const excluirPorId = async (id: number): Promise<void | Error> => {
+const excluirPorId = async (idTarefa: number, idProjeto: number): Promise<void | Error> => {
     try {
-        await Api.delete(`/tarefas/${id}`);
+        await Api.delete(`/tarefas/${idTarefa}`);
+        atualizarProjetoAposExcluirTarefa(idTarefa, idProjeto);
     } catch (erro) {
         console.error(erro);
         return new Error((erro as { message: string }).message || 'Erro ao excluir tarefa.');
@@ -62,10 +64,24 @@ const buscarPorProjetoId = async (idProjeto: number): Promise<TarefaModel[]> => 
     }
 };
 
+function atualizarProjetoAposExcluirTarefa(idTarefa: number, idProjeto: number) {
+    Api.get(`/projetos/${idProjeto}`)
+        .then(response => {
+            const projeto = response.data as ProjetoModel;
+            const tarefasAtualizadas = projeto.tarefas.filter((tarefa) => tarefa.id !== idTarefa);
+
+            Api.put(`/projetos/${projeto.id}`, {
+                ...projeto,
+                tarefas: tarefasAtualizadas
+            })
+                .then();
+        });
+}
+
 function atualizarProjetoComTarefaNova(tarefaCriada: TarefaModel) {
     Api.get(`/projetos/${tarefaCriada.projetoId}`)
         .then(response => {
-            const projeto = response.data;
+            const projeto = response.data as ProjetoModel;
             const tarefasAtualizadas = [...projeto.tarefas, tarefaCriada];
 
             Api.put(`/projetos/${projeto.id}`, {
@@ -79,16 +95,24 @@ function atualizarProjetoComTarefaNova(tarefaCriada: TarefaModel) {
 function atualizarProjetoComTarefaAtualizada(tarefaAtualizada: TarefaModel) {
     Api.get(`/projetos/${tarefaAtualizada.projetoId}`)
         .then(response => {
-            const projeto = response.data;
-            const index = projeto.tarefas.findIndex(tarefaAtualizada);
-            const tarefasDoProjeto = projeto.tarefas.splice(index, 1);
-            const tarefasAtualizadas = [...tarefasDoProjeto, tarefaAtualizada];
+            const projeto = response.data as ProjetoModel;
+            // Encontrar o índice correto da tarefa usando o ID
+            const index = projeto.tarefas.findIndex(t => t.id === tarefaAtualizada.id);
 
-            Api.put(`/projetos/${projeto.id}`, {
-                ...projeto,
-                tarefas: tarefasAtualizadas
-            })
-                .then();
+            if (index !== -1) {
+                // Criar um novo array de tarefas com a tarefa atualizada
+                const tarefasAtualizadas = [
+                    ...projeto.tarefas.slice(0, index),
+                    tarefaAtualizada,
+                    ...projeto.tarefas.slice(index + 1)
+                ];
+
+                Api.put(`/projetos/${projeto.id}`, {
+                    ...projeto,
+                    tarefas: tarefasAtualizadas
+                })
+                    .then();
+            }
         });
 }
 
